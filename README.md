@@ -8,7 +8,7 @@ The data for the analysis can be found here: https://doi.org/10.6084/m9.figshare
 The dataset contains Neuropixels recordings from 4 mice that are either PV-Cre or PV-DNMT1-KO animals. Each recording contains pre-processed LFP and spiking data that was used to create the electrophysiological results of the study.
 
 To get to the results in the paper, download the dataset with the data in a common base folder.
-You can then use the main functions (all starting with dpv_) to create different figures. For the code to work, the variable 'opts.localPath' needs to be changed to the base folder where the downloaded data was placed
+You can then use the main functions (all starting with dpv_) to create different figures. For the code to work, the variable 'opts.localPath' needs to be changed to the base folder where the downloaded data was placed and the dependencies should be in the Matlab path so that the required functions can be used.
 
 Here is a short description of the included functions:
 
