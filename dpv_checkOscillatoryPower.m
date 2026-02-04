@@ -1,7 +1,7 @@
 %% define experiments to use
 recLabels = {'Animal','ExperimentDate','Location','Expertise','Folder','Probe','Background','Path','Ramppower','useRec','hasGamma'};
-recInfo{1} = {'SOM2554','26/01/2022','V1','Naive','SOM2554_20221026','0','SOM-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'SOM2554','28/01/2022','V1','Naive','SOM2554_20221028','0','SOM-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'SOM2554','29/01/2022','V1','Naive','SOM2554_20221029','0','SOM-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'SOM2563','26/01/2022','V1','Naive','SOM2563_20221026','0','SOM-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'SOM2563','27/01/2022','V1','Naive','SOM2563_20221027','0','SOM-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'SOM2563','28/01/2022','V1','Naive','SOM2563_20221028','0','SOM-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'SOM2563','29/01/2022','V1','Naive','SOM2563_20221029','0','SOM-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control'};
-recInfo{2} = {'SOM2626','09/02/2023','V1','Naive','SOM2626_20230209','0','SOM-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','SOM-DNMT1';'SOM2626','10/02/2023','V1','Naive','SOM2626_20230210','0','SOM-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','SOM-DNMT1';'SOM2626','11/02/2023','V1','Naive','SOM2626_20230211','0','SOM-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','SOM-DNMT1';'SOM2627','24/01/2023','V1','Naive','SOM2627_20230124','0','SOM-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','SOM-DNMT1';'SOM2627','25/01/2023','V1','Naive','SOM2627_20230125','0','SOM-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','SOM-DNMT1';'SOM2627','26/01/2023','V1','Naive','SOM2627_20230126','0','SOM-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','SOM-DNMT1';'SOM2627','27/01/2023','V1','Naive','SOM2627_20230127','0','SOM-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','SOM-DNMT1'};
+recInfo{1} = {'PV2555','26/01/2022','V1','Naive','PV2555_20221026','0','PV-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'PV2555','28/01/2022','V1','Naive','PV2555_20221028','0','PV-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'PV2555','29/01/2022','V1','Naive','PV2555_20221029','0','PV-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'PV2556','26/01/2022','V1','Naive','PV2556_20221026','0','PV-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'PV2556','27/01/2022','V1','Naive','PV2556_20221027','0','PV-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'PV2556','28/01/2022','V1','Naive','PV2556_20221028','0','PV-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control';'PV2556','29/01/2022','V1','Naive','PV2556_20221029','0','PV-Cre','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','Control'};
+recInfo{2} = {'PV2632','09/02/2023','V1','Naive','PV2632_20230209','0','PV-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','PV-DNMT1';'PV2632','10/02/2023','V1','Naive','PV2632_20230210','0','PV-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','PV-DNMT1';'PV2632','11/02/2023','V1','Naive','PV2632_20230211','0','PV-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','PV-DNMT1';'PV2633','24/01/2023','V1','Naive','PV2633_20230124','0','PV-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','PV-DNMT1';'PV2633','25/01/2023','V1','Naive','PV2633_20230125','0','PV-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','PV-DNMT1';'PV2633','26/01/2023','V1','Naive','PV2633_20230126','0','PV-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','PV-DNMT1';'PV2633','27/01/2023','V1','Naive','PV2633_20230127','0','PV-DNMT1','\\naskampa.kampa-10g\lts\invivo_ephys\Neuropixels\','high','1','1','PV-DNMT1'};
 
 %% basic variables
 clear opts
@@ -9,7 +9,7 @@ opts.Location = {'V1'};
 opts.makePlot = false;
 opts.removeAvg = false;
 opts.useTaper = true;
-opts.groups = {'SOM-Cre' , 'SOM-DNMT1'};
+opts.groups = {'PV-Cre' , 'PV-DNMT1'};
 opts.brainRange = 3000;
 opts.hasGamma = '1';
 opts.useRec = '1';
@@ -17,12 +17,8 @@ opts.savePath = 'F:\DNMT1_project\Ephys_Data\';
 opts.reload = false;
 opts.gid = 'PassiveStimulation';
 opts.brainThresh = 2;
+opts.imecNr = '0';
 
-if strcmpi(opts.Location, 'V1')
-    opts.imecNr = '0';
-elseif strcmpi(opts.Location, 'S1')
-    opts.imecNr = '1';
-end
 ctxRange = [0 1000];
 scRange = [1800 2500];
 
