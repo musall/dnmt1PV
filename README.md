@@ -15,8 +15,8 @@ Here is a short description of the included functions:
 
 dpv_checkOscillatoryPower - Show results for analysis of LFP data as shown in Fig. 7 of the manuscript
 
-dpv_showVisualResponse - Show current source density analysis in S1 recordings in response to tactile stimulation
+dpv_showVisualResponse - Show current source density analysis in S1 recordings in response to visual stimulation
 
-dpv_sensoryStimulation - Show results of spiking analysis in response to tactile stimulation
+dpv_sensoryStimulation - Show results of spiking analysis in response to visual stimulation
 
-dpv_pvStimulation - Show neural response to optogenetic stimulation of SOM neurons in S1 and V1
+dpv_pvStimulation - Show neural response to optogenetic stimulation of PV neurons
