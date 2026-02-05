@@ -77,7 +77,7 @@ for iGroups = 1 : length(allSpecs)
         depthlines = [find(ctxIdx,1), find(ctxIdx,1,'last'), find(scIdx,1), find(scIdx,1,'last')];
         ax.YTick = depthlines;
         ax.YTickLabels = depthRange(depthlines);
-        nhline(depthlines, 'w--')
+        nhline(depthlines, 'w--');
         ylabel('Depth (um)');
         
         useFreqs = 1 : ceil(20 / mean(diff(plotFreqs))) : length(plotFreqs);
@@ -136,7 +136,7 @@ for iGroups = 1 : length(allSpecs)
             ax.YTick = stepIdx;
             cDepth = depthRange(cIdx);
             ax.YTickLabels = cDepth(stepIdx)/1000;
-            nhline(stepIdx, 'w--')
+            nhline(stepIdx, 'w--');
             ylabel('Depth [mm]');
             
             useFreqs = 1 : ceil(20 / mean(diff(plotFreqs))) : length(plotFreqs);
