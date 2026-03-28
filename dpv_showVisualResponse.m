@@ -1,5 +1,5 @@
 %% basic variables
-opts.Location = {'S1'};
+opts.Location = {'V1'};
 opts.makePlot = false;
 opts.removeAvg = false;
 opts.useTaper = false;
@@ -28,6 +28,7 @@ failedRecs = cell(1, length(opts.groups));
 allCSD = cell(1, length(opts.groups));
 allLFP = cell(1, length(opts.groups));
 allStimStd = cell(1, length(opts.groups));
+allAnimalID = cell(1, length(opts.groups));
 for iGroups = 1 : nrGroups
     
     cPath = fullfile(opts.savePath, opts.groups{iGroups});
@@ -36,6 +37,7 @@ for iGroups = 1 : nrGroups
     allCSD{iGroups} = cell(1, length(recs));
     allLFP{iGroups} = cell(1, length(recs));
     allStimStd{iGroups} = cell(1, length(recs));
+    allAnimalID{iGroups} = cell(1, length(recs));
     for iRecs = 1 : length(recs)
         
         saveFile = fullfile(recs(iRecs).folder, recs(iRecs).name);
@@ -44,6 +46,11 @@ for iGroups = 1 : nrGroups
         allCSD{iGroups}{iRecs} = cFile.csdResp;
         allLFP{iGroups}{iRecs} = cFile.lfpResp;
         allStimStd{iGroups}{iRecs} = cFile.meanStd;
+        
+        % Extract animal and recording folder names
+        [recFolder, recName] = fileparts(recs(iRecs).folder);
+        [groupFolder, animalName] = fileparts(recFolder);
+        allAnimalID{iGroups}{iRecs} = [opts.groups{iGroups} '_' animalName];
 
     end
 end
@@ -149,16 +156,16 @@ for iGroups = 1 : nrGroups
                 end
                 
                 cData = squeeze(nanmean(mergeStim(cIdx, :, :), 1));
-                t = (0 : size(cData,1)-1)/ lfMeta.sRateHz - opts.baseDur;
-                stimOn = find(abs(t) == min(abs(t)));
+                xTime = (0 : size(cData,1)-1)/ lfMeta.sRateHz - opts.baseDur;
+                stimOn = find(abs(xTime) == min(abs(xTime)));
                 cData = cData - cData(stimOn, :);
-                cIdx = t>0 & t < 0.1;
+                cIdx = xTime>0 & xTime < 0.1;
                 depthPeaks{iGroups,iSteps} = min(cData(cIdx,:));
             end
 
             % get traces from different depths
             mergeTrace = cell(1,2);
-            cIdx = depthRange < opts.layerRange(1);
+            cIdx = depthRange > 200 & depthRange < opts.layerRange(1);
             mergeTrace{1} = squeeze(nanmean(mergeStim(cIdx, :, :), 1));
             cIdx = depthRange > opts.layerRange(1) & depthRange < opts.layerRange(2);
             mergeTrace{2} = squeeze(nanmean(mergeStim(cIdx, :, :), 1));
@@ -192,18 +199,18 @@ for iGroups = 1 : nrGroups
             
             for iDepth = 1 : 2
                 subplot(2,2,iDepth+2)
-                t = (0 : size(mergeTrace{iDepth},1)-1)./ lfMeta.sRateHz - opts.baseDur;
+                xTime = (0 : size(mergeTrace{iDepth},1)-1)./ lfMeta.sRateHz - opts.baseDur;
                 xlim([-0.05 0.25]); axis square;
                 ylim(traceRange)
                 nvline(0, '--k');
                 nhline(0, '--k');
-                mergeTrace{iDepth} = mergeTrace{iDepth} - mergeTrace{iDepth}(abs(t) == min(abs(t)),:);
-                lines(iGroups) = stdshade(mergeTrace{iDepth}', 0.5, opts.groupColors{iGroups}, t);
+                mergeTrace{iDepth} = mergeTrace{iDepth} - mergeTrace{iDepth}(abs(xTime) == min(abs(xTime)),:);
+                lines(iGroups) = stdshade(mergeTrace{iDepth}', 0.5, opts.groupColors{iGroups}, xTime);
                 title([opts.Location{1} '; ' stimLabel ' stimulation; ' respLabels{x} '; ' depthLabel{iDepth}]);
                 ylabel('CSD deflection');
                 xlabel('time (s)');
                 niceFigure;
-                cIdx = t>0 & t < 0.1;
+                cIdx = xTime>0 & xTime < 0.1;
                 [peakResp{iGroups, iDepth}, peakTime{iGroups, iDepth}] = min(mergeTrace{iDepth}(cIdx,:));
             end
 
@@ -213,22 +220,33 @@ end
 legend(lines, opts.groups)
 
 %% show some statistics
-for iDepth = 1 : 2
 disp('====================')
-disp(depthLabel(iDepth));
 disp('CSD peak response:')
-fprintf('%s: Peak response %.2f %c %.2fuV\n'  , opts.groups{1}, mean(peakResp{1, iDepth}), char(177), sem(peakResp{1, iDepth}));
-fprintf('%s: Peak response %.2f %c %.2fuV\n'  , opts.groups{2}, mean(peakResp{2, iDepth}), char(177), sem(peakResp{2, iDepth}));
-fprintf('pVal ranksum test: %f\n', ranksum(peakResp{1, iDepth}, peakResp{2, iDepth}))
+fprintf('%s: Peak response %.2f %c %.2fuV\n'  , opts.groups{1}, mean(peakResp{1, 1}), char(177), sem(peakResp{1, 1}));
+fprintf('%s: Peak response %.2f %c %.2fuV\n'  , opts.groups{2}, mean(peakResp{2, 1}), char(177), sem(peakResp{2, 1}));
+fprintf('pVal ranksum test: %f\n', ranksum(peakResp{1, 1}, peakResp{2, 1}))
+
+% LME test
+dataIn = cat(2, peakResp{1, 1}, peakResp{2, 1});
+conditionID = [ones(length(allAnimalID{1}),1);2*ones(length(allAnimalID{2}),1)];
+animalID = cat(2, allAnimalID{1}, allAnimalID{2});
+[p1,t1] = LME_compareMulti(dataIn, conditionID, animalID);
+fprintf('LME test: pVal = %f; tVal = %f\n', p1, t1);
 
 disp('====================')
-zeroTime = find(t > 0, 1);
+zeroTime = find(xTime > 0, 1);
 disp('CSD peak time:')
-fprintf('%s: Peak time %.2f %c %.2fms\n'  , opts.groups{1}, mean(t(peakTime{1, iDepth}+zeroTime)*1000), char(177), sem(t(peakTime{1, iDepth}+zeroTime)*1000));
-fprintf('%s: Peak time %.2f %c %.2fms\n'  , opts.groups{2}, mean(t(peakTime{2, iDepth}+zeroTime)*1000), char(177), sem(t(peakTime{2, iDepth}+zeroTime)*1000));
-fprintf('pVal ranksum test: %f\n', ranksum(peakTime{1}, peakTime{2}))
+fprintf('%s: Peak time %.2f %c %.2fms\n'  , opts.groups{1}, mean(xTime(peakTime{1, 1}+zeroTime)*1000), char(177), sem(xTime(peakTime{1, 1}+zeroTime)*1000));
+fprintf('%s: Peak time %.2f %c %.2fms\n'  , opts.groups{2}, mean(xTime(peakTime{2, 1}+zeroTime)*1000), char(177), sem(xTime(peakTime{2, 1}+zeroTime)*1000));
+fprintf('pVal ranksum test: %f\n', ranksum(peakTime{1, 1}, peakTime{2, 1}))
+
+% LME test
+dataIn = cat(2, peakTime{1, 1}, peakTime{2, 1});
+conditionID = [ones(length(allAnimalID{1}),1);2*ones(length(allAnimalID{2}),1)];
+animalID = cat(2, allAnimalID{1}, allAnimalID{2});
+[p2,t2] = LME_compareMulti(dataIn, conditionID, animalID);
+fprintf('LME test: pVal = %f; tVal = %f\n', p2, t2);
 disp('====================')
-end
 
 %% more CSD analysis
 figure; hold on;
